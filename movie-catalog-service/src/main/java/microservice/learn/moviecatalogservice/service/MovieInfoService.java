@@ -15,8 +15,13 @@ public class MovieInfoService {
     public RestTemplate restTemplate;
 
     @HystrixCommand(fallbackMethod = "getFallbackCatalogItem",
+            threadPoolKey = "movieInfoPool",
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "20"),
+                    @HystrixProperty(name = "maxQueueSize", value = "10"),
+            },
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeInMilliseconds", value = "2000"),
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
                     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
                     @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
                     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")

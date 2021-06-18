@@ -18,3 +18,5 @@ you can check eg in http://localhost:8083/ratingsdata/users/foo
 Lazy Initialize Bean, Eager Initialize Bean. Default is lazy
 
 RestTemplate is Thread Safe
+
+Hystrix Dashboard URL - http://localhost:8081/hystrix

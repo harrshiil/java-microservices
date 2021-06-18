@@ -79,3 +79,10 @@ When circuit breaker happens what to send response to consumer or client
 
 ###what is resilience - How Many
 How many fault the system tolerate. that indicates how resilient it is
+
+### **BulkHead Pattern adding into Hystrix**
+
+Bulkhead pattern means dividing threads between two service calls via thread pool.
+so each service call will use its own thread. so it won't affect other service call if one of them is down
+
+just to add threadPoolKeys & threadPoolProperties

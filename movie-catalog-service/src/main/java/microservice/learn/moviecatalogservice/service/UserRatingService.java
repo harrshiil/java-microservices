@@ -17,8 +17,13 @@ public class UserRatingService {
     public RestTemplate restTemplate;
 
     @HystrixCommand(fallbackMethod = "getFallbackUserRating",
+            threadPoolKey = "ratingDataPool",
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "20"),
+                    @HystrixProperty(name = "maxQueueSize", value = "10"),
+            },
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeInMilliseconds", value = "2000"), // wait for this long to and if still no response then timeout
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"), // wait for this long to and if still no response then timeout
                     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"), // the number of requests its to see
                     @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"), // percentage of request are failing
                     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000") // not to request for this time after knowing circuit is broken
